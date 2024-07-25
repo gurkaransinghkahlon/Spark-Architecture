@@ -1,0 +1,27 @@
+	1. Spark is open source distributed computing engine. It is used for processing and analysing a large amount of data.
+	2. It is 100 times faster in memory as compared to Hadoop.
+	3. Spark has well designed layered architecture. It follows master/slave concept. There is a Driver, worker and cluster manager layer.
+
+Spark Attributes
+	1. Scalable
+	2. Fault tolerant
+	3. Polyglot (many languages follow)
+	4. Speed
+	5. Rich Libraries like ML, AI
+
+Application can have job. A Job can have multiple Stages. Each Stage can have multiple tasks.
+
+Terminologies
+	1. Transformation -  Transform the input RDD(Resilient Distributed Dataset) and creates new RDD.
+	2. DAG: Directed Acyclic Graph keeps track of all transformation. For each transformation, logical plan is created and lineage graph is maintained by DAG.
+	3. Action: For storage purpose or when data output is needed.  Action executed based on DAG.
+	4. RDD: Resilient Distributed Dataset is basic data structure of Spark.
+	5. Executor: Each worker node consists of many executor.
+	6. Partition: RDD/Dataframe is stored in-memory of cluster in form of partition
+	7. Core: Each executor can consists of multiple cores.
+	8. On-heap memory within JVM and Off-heap memory outside JVM managed by OS.
+
+Memory Architecture
+	1. Unified Memory = Store memory + Execution memory  and is 60% of heap memory
+	2. User Memory = 40% of heap memory
+	3. Reserved Memory ~ 300MB
