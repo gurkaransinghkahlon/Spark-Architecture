@@ -1,0 +1,25 @@
+Pyspark - RDD, Dataframe and Dataset
+
+1. These(RDD, Dataframe and Dataset) API are used for data processing and analytics
+2. These return same output. There is difference in terms of performance, user convenience and language support.
+3. RDD is Spark 1.0 introduced in 2011.
+4. Dataframe is Spark 1.3 introduced in 2013.
+5. Dataset is Spark 1.6 introduced in 2015.
+6. Dataset == Best of RDD + Best of Dataframe.
+
+Similarities in all three APIs(RDD, Dataframe and Dataset):
+
+1. Fault tolerant.
+2. Distributed in nature.
+3. In memory processing.
+4. Immutable - creates new RDD incase of transformation
+5. Lazy evaluation - Store info in form of DAG graph.
+6. Internally processing as RDD for all API's
+
+Differences
+
+1. RDD is Program how to DO, others(Dataframe and Dataset) are program what to do/
+2. RDD is OOPS style API, Dataframe is SQL and Dataset is OOPs style API.
+3. RDD uses On heap memory and others(Dataframe and Dataset) use off heap memory.
+4. RDD has strong type Safety(specify Datatype), Dataframe is less type safety and Dataset has strong type safety.
+5. RDD has no schema whereas others(Dataframe and Dataset) are schema structured.
