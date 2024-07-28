@@ -1,0 +1,16 @@
+
+Transformation:
+	1. It is a kind of operation which will transform dataframe from one form to another We will get new dataframe after execution of transformation operation
+	2. It is lazy evaluation based on DAG(Directed Acyclic Graph).
+	3. Eg- Filter, Union, map, groupBy
+	
+Action:
+	1. When we want to work with actual data, we call action.
+	2. Action returns data to driver for storage or display.
+	3. Collect, Count and and Save, forEach, reduce.
+	
+Type of Transformation:
+	1. Narrow Tranformation - No need to shuffle data across nodes. Simple Tranformation.
+	   Eg -> Df2 = Df1.filter(Df1.emp_id=200) 
+	2. Wide Transformation - Need to shuffle data across nodes. Complex.
+	   Eg -> Df2 = Df1.groupBy("Dept").count()
