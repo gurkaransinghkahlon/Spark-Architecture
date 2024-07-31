@@ -9,4 +9,7 @@ On Heap and Off Heap Memory
 7. User Memory = 40% of on-heap memory.
 8. Reserved Memory ~ 300 Mb
 9. Each Executor within worker node has access to Off-Heap memory.
-10. 
+10. Amount of Off-Heap memory stored is spark.memory.offHeap.size
+11. To enable offHeap memory, set spark.memory.offHeap.use to True.
+12. Accessing Off-Heap memory is slower than on-Heap memory.
+13. No Overhead of Garbage Collector incase of Off-Heap, but need to call GC scans in case of On-heap memory
