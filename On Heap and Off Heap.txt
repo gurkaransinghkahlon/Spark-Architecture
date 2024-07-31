@@ -1,0 +1,12 @@
+On Heap and Off Heap Memory
+
+1. One Executor per worker node
+2. JVM controls onHeap memory.
+3. OS controls Off-Heap memory.
+4. Executor has onHeap memory.
+5. Unified Memory Management(UMM) = 60% of on-heap memory.
+6. UMM = 50% execution memory and 50% Storage memory
+7. User Memory = 40% of on-heap memory.
+8. Reserved Memory ~ 300 Mb
+9. Each Executor within worker node has access to Off-Heap memory.
+10. 
