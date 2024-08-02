@@ -1,0 +1,37 @@
+DataBricks Cluster:
+1. Cluster is computing infrastructure in databricks environment.
+2. Cluster is the set of computation resources and configurations.
+
+Cluster Types
+1. All Purpose Cluster:
+	These are used to execute and analyze data collaborately using interative notebooks. 
+	We can manually terminate and restart these cluster.
+	Multiple users can share it
+
+2. Job Cluster:
+	These are used to run fast and robust automated jobs.
+	These are created at the start of the execution and terminate at the end of execution
+	
+3. Pools
+	These are created to reduce boot time and autoscaling.
+	Cluster can be attached to pool
+	Pool is configured with set of idle and ready to use instances.
+	When job is executed, cluster will return back to pool.
+	
+Cluster Modes
+1. Standard: 
+	For Single user with No Team Collaboration
+	
+2. High Concurrency: 
+	This mode is suitable for collaboration.
+	
+3. Single Node:
+	This mode run job only on driver mode and No worker node is provisioned.
+	
+Cluster Runtime
+Runtime is the set of core components that are needed for cluster to run. It differs in usability(Data Science, Data Engg), performance and security.
+
+Worker Node measurement is done in DBU (DataBricks Unit)
+Spot instance saves money
+
+
