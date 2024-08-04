@@ -1,0 +1,28 @@
+Spark Reader Read a CSV File
+
+Syntax
+df = spark.read.format(file_type)
+				.option("inferSchema",True)
+				.option("header",True)
+				.option("sep",",")
+				.schema(schema_df)
+				.load(file_location)
+				
+display(df)
+				
+File location can be-
+1. load(path1)
+2. load(path1,path2)
+3. load(folder)
+
+File Type can be-
+1. CSV
+2. PARQUET
+3. ORC
+4. JSON
+5. AVRO
+
+Either we can define our own schema like below-
+schema_alternate = 'Year INTEGER, Name STRING, County STRING, Sex STRING, Count INTEGER'
+
+Then we dont have to define .option("inferSchema",True) just use .schema(schema_alternate)
