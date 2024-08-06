@@ -1,0 +1,13 @@
+Filter
+	To limit the data result or extract a subset of master data
+	
+	1. filter(df.column != 50)
+	2. filter((df.col('column1') > 50) & (df.col('column2') > 50))
+	3. filter((df.col('column1') > 50) & (df.col('column2') > 50))
+	4. filter(df.column.isNull())
+	5. filter(df.column.isNotNull())
+	6. filter(df.column.like('%%'))
+	5. filter(df.name.isin())
+	6. filter(df.column.contains(''))
+	7. filter(df.column.startswith(''))
+	8. filter(df.column.endswith(''))
