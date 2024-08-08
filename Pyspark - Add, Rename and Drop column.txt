@@ -1,0 +1,17 @@
+Add Column
+	- DF.withColumn("newColumnName",Value)
+	
+Rename Column
+	- DF.withColumnRenamed("Old_name","New Name")
+	
+Drop Column
+	- DF.drop("Column_name")
+	
+Eg - create a dataframe
+	employee_data = [(10,"Raj,"Kumar","1999","100","M",2000)]
+	employee_schema = ["employee_id","first_name","last_name","doj","emp_dept_id","gender","salary"]
+	empDF = spark.createDataframe(data = employee_data,schema = employee_schema)
+	
+	Eg - 
+	NewDF = empDF.withColumn("location",lit("Mumbai"));
+	empDF.withColumn("Bonus",empDF.salary*0.1).withColumn("Name",concat("first_name","last_name"))
