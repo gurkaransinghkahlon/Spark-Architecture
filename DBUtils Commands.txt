@@ -1,0 +1,45 @@
+DBUtils Commands
+1. It helps to interact with Databricks file systems and Notebooks.
+2. Used to handle input and output parameters for notebooks.
+3. Used to retrieve secrets from Azure Key Vault.
+
+eg- 
+a. dbutils.fs.help()
+b. dbutils.notebook.help()
+c. dbutils.widgets.help()
+d. dbutils.secrests.help("get")
+e. dbutils.fs.help("cp")
+f. dbutils.notebook.help("exit")
+
+File System
+1. dbutils.fs.ls
+2. dbutils.fs.head   -- Prints everything
+3. dbutils.fs.mkdirs
+4. dbutils.fs.cp
+5. dbutils.fs.mv
+6. dbutils.fs.put   -- creates a file and also insert content in it
+7. dbutils.fs.rm
+
+Notebook:
+1. dbutils.notebook.exit
+2. dbutils.notebook.run
+
+Secrets:
+1. dbutils.secret.get
+2. dbutils.secret.list
+
+Widgets:
+1. dbutils.widgets.text
+2. dbutils.widgets.get
+3. dbutils.widgets.combobox
+4. dbutils.widgets.dropdown
+5. dbutils.widgets.multiselect
+6. dbutils.widgets.removeall
+
+Read a CSV file
+df(dataframe) = spark.read.format("csv").option("inferSchema",True)
+				.option("header",True)
+				.option("sep",",")
+				.load(Folder_location + File_location)
+				
+display(df)
