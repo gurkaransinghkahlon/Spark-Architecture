@@ -1,0 +1,26 @@
+1. Explode
+	When array is passed to this function, it creates a new row for each element in array.
+	When map is passed it creates two column, one for key and one for value. 
+	If array ir map is null, row is eliminated
+	
+2. Explode_outer
+	Unlike explode, if array or map is null, explode_outer returns null
+	
+3. Posexplode
+	When array or map is passed, it creates positional column for each element.
+	Ignore the null elements.
+	
+4. Posexplode_outer
+	Unlike posexplode, if array or map is null, posexplode_outer returns null
+	
+To create dataframe,
+spark.createDataFrame(data=array_appliance,schema = ['name',appliances']
+
+How to use above
+	from pyspark.sql.functions import explode
+
+	df2 = df_app.select(df_app.name,explode(df_app.appliances))
+	df2.printSchema();
+	display(df2)
+
+	#explode can be replaced by explode_outer, posexplode, posexplode_outer
