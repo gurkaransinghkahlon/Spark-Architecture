@@ -1,0 +1,38 @@
+When(). Otherwise().
+	It is similar to switch statement in Java
+	When no statement is matching, otherwise() statement will be chosen.
+	
+Syntax-
+	1. df.withColumn("New or existing column",when(condition1, result1)
+										  .when(condition2, result2)
+										  .when(conditionN, resultN)
+										  .otherwise(Result))
+			
+		Eg- 
+			from pyspark.sql.functions import when
+			
+			df1 = df.withColumn("Status", when(df.mark >= 50, "PASS")
+										  .when(df.mark < 50, "FAIL")
+										  .otherwise("Absentee")
+			display(df1)
+			
+											
+	2. df.withColumn("New or existing column",expr("CASE when Condition1 Then Result1"+
+													"when Condition2 Then Result2"+
+													"when ConditionN Then ResultN"+
+													"ELSE Result END"))
+		Eg -
+			from pyspark.sql.functions import expr
+			
+			df2 = df.withColumn("Status",expr("CASE WHEN marks >= 50 THEN 'PASS'"+
+												"WHEN mark < 50 THEN 'FAIL'+
+												"ELSE 'Absentee' END")
+			display(df2)
+	
+	3. To combine multiple conditions then '&' for AND '|' for OR
+		Eg-
+			from pyspark.sql.functions import when
+			df3 = df.withColumn("Grade",when((df.mark >=80 | df.Attendance >=80), "Distinction")
+										.when((df.mark>50 & df.Attendance>50), "Good")
+										.otherwise("Average"))
+			display(df3)	
