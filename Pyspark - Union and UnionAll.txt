@@ -1,0 +1,17 @@
+Union -
+	To combine two dataframes. Schema of both dataframes should match.
+	Duplicates can be removed manually by dropDuplicates()
+	Syntax:
+		DF_Union = DF1.union(DF2)
+		
+UnionAll -
+	Same as union and retains duplicate records as well in resultant dataframe.
+	Syntax:
+		DF_unionall = DF1.unionAll(DF2)
+		
+		
+Detect Spark version
+from pyspark.sql imprt SparkSession
+
+spark = SparkSession.builder.master("local").getOrCreate()
+print(spark.sparkContext.version)
