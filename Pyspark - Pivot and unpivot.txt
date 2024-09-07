@@ -1,0 +1,22 @@
+Pivot
+	It is used to transform the list of values of a column to columns
+	
+Unpivot
+	It is opposite to pivot. Transforming the column into a list of values to a 
+	column.
+	
+Eg-
+DF													Pivot_DF
+	Company | Quarter | Revenue  ------Pivot --> 	Company | Q1   | Q2
+	ABC		| Q1	  | 6000						ABC		| 6000 | 8000
+	XYZ     | Q1      | 5000						XYZ		| 5000 | 7000
+	ABC		| Q2	  | 8000
+	XYZ     | Q2      | 7000     <---Unpivot --
+	
+
+Pivot Syntax
+Pivot_DF = DF.groupBy("Company").pivot("Quarter").sum("Revenue")
+
+Unpivot Synatax
+DF = Pivot_DF.selectExpr("Company","stack(2,'Q1',Q1,'Q2',Q2)as(Quarter,Revenue)").
+	where("Revenue is not null")
