@@ -1,0 +1,32 @@
+1.  By Flatten JSON we mean that we can convert JSON to Dataframe by using customized
+	function.
+
+	df = spark.read.option("multiline","true").json("FileStore/tables/json_files/Sample_data.json")
+
+	df_flatten = flatten(df)
+	display(df_flatten)
+
+	NOTE: flatten is customized user defined function
+
+2. Bad record handling
+	a. Permissive - Include corrupt record in separate column  - "PERMISSIVE"
+	b. Drop Malformed - Ignore corrupt records     - "DROPMALFORMED"
+	c. Fail Fast - Throw exception if corrupt record  - "FAILFAST"
+	
+	Syntax:
+	DF = spark.read.format("csv")
+					.option("mode","DROPMALFORMED")
+					.option("header","true")
+					.schema(schema)
+					.load(path)
+					
+	define schema
+	 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+	 schema = StructType([ \
+			StructField("Month", StringType(),True), \
+			StructField("Emp_count", IntegerType(),True), \
+			StructField("Production unit", IntegerType(),True), \
+			StructField("Expense", IntegerType(),True), \
+			StructField("_corrupt_record", StringType(),True),
+			])
+			
