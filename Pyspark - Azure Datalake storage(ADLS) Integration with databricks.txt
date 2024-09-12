@@ -1,0 +1,39 @@
+ADLS (Azure dataLake Storage) integration with Databricks can be done using
+1. Service Principle
+2. Using Azure Active Directory Credentials known as credential passthrough.
+3. USing ADLS access Key directly
+4. Creating mount point usig ADLS access key.
+
+High Level Actions:
+1. Create an azure data lake storage  (in azure portal)
+2. create a mount point
+3. Read files from ADLS in databricks.
+
+Implementation of using Access Key directly
+	spark.conf.set(
+	"fs.azure.account.key.<storage account>.dfs.core.windows.net",
+	<access key>
+	)
+	
+	dbutils.fs.ls("abfss://<container>@<Storage account>.dfs.core.windows.net/")
+	//Read files in container
+	
+	file_loc = "abfss://container@adlsrajade.dfs.core.windows.net/"
+	
+	df = spark.read.format("csv").option("inferSchema","true")
+					.option("header","true").option("delimiter",",").load(file_loc)
+					
+	display(df)
+	
+Implementation of Create Mount Point using ADLS Access key
+	dbutils.fs.mount(
+		source ="wasbs://container@<Storage account>.blob.core.windows.net",
+		mount_point = "/mnt/adls_test",
+		extra_configs = {"fs.azure.account.key.<storage account>.blob.core.windows.net":"<access key>"}
+	)
+	
+	dbutils.fs.ls("/mnt/adls_test")
+	
+	dbutils.fs.mounts()
+	
+	dbutils.fs.unmount("/mnt/adls_test")
