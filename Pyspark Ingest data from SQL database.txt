@@ -1,0 +1,24 @@
+1. Create SQL database from azure portal
+2. Login into SQL database in azure portal
+	Note: Might need to enable firewall in SQL Server and add IP range
+	
+Open SQL databse in Microsoft SQL Server and connect to database
+
+Connection to database in azure databricks
+	jdbcHostname = ""
+	jdbcPort = 1433
+	jdbcDatabase = ""
+	jdbcUsername = ""
+	jdbcPassword = ""
+	jdbcDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+	jdbcUrl = f"jdbc:sqlserver://{jdbcHostname}:{jdbcPort};databaseName={jdbcDatabase};user={jdbcUsername};password = {jdbcPassword}"
+	
+	df1 = spark.read.format("jdbc").option("url",jdbcUrl).option("dbtable","<Schema.Tablename>").load()
+	display(df1)
+	
+Option 2:
+	Using connection string
+	connection_string = "<get it from azure portal database string>"
+	
+	df = spark.read.jdbc(connection_string,"<Schema.Tablename>")
+	display(df)
