@@ -1,0 +1,67 @@
+ETL Process
+	Extract 
+		Read Tables from Azure SQL
+		JDBC Connectors are used
+		Dataframes are created
+		
+	Transform
+		Business Transformations are applied
+		Null are replaced with default values
+		Duplicates are dropped
+		Joins and Aggregate are performed
+		
+	Load
+		Mount point is created for ADLS integration
+		Data is loaded in Parquet file format to target location
+		
+Step 1: Extract Tables from Azure SQL
+	jdbcHostname = ""
+	jdbcPort = 1433
+	jdbcDatabase = ""
+	jdbcUsername = ""
+	jdbcPassword = ""
+	jdbcDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+	jdbcUrl = f"jdbc:sqlserver://{jdbcHostname}:{jdbcPort};databaseName={jdbcDatabase};user={jdbcUsername};password={jdbcPassword}"
+	
+	Read Product Table
+	df_product=spark.read.format("jdbc").option("url",jdbcUrl).option("dbtable","<Schema.Tablename").load()
+	display(df_product)
+	
+	df_sales=spark.read.format("jdbc").option("url",jdbcUrl).option("dbtable","<Schema.Tablename").load()
+	display(df_sales)
+	
+Step 2: Tranform the data as per Business rules
+
+		Cleansing - Replacing null values
+		df_product_cleansed = df_product.na.fill({"Size":"M", "Weight":"100"})
+		display(df_product_cleansed)
+		
+		Drop Duplicate values
+		df_sales_cleansed = df_sales.dropDuplicates()
+		display(df_sales_cleansed)
+		
+		Join Tables
+		df_join = df_sales_cleansed.join(df_product_cleansed, df_product_cleansed.ProductID = df_sales_cleansed.ProductID,"leftouter).select(###)
+		display(df_join)
+		
+		df_agg = df_join.groupBy(["ProductID","Name","Color","Size","Weight"]).sum("LineTotal").withColumnRenamed("sum(LineTotal)","sum_total_sales")
+		display(df_agg)
+	
+Step 3: Load Transformed Data into Azure Data Lake Storage
+		
+		Create Mount point for ADLS integration
+		dbutils.fs.mount(
+			source = "wasbs://container@Storage.blob.core.windows.net",
+			mount_point = "/mnt/adls_test",
+			extra_configs = {"":"<Access Key>"}
+		)
+		
+		List Files under mount point
+		dbutils.fs.ls("/mnt/adls_test")
+		
+		Write the data in Parquet format
+		df_agg.write.format("parquet").save("/mnt/adls/adv_work_parquet/")
+		
+		Write the data in csv format
+		df_agg.write.format("csv").option("header","true").save("/mnt/adls_test/adv_work_csv/")
+	
