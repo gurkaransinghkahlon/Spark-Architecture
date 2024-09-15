@@ -1,0 +1,20 @@
+Three Steps involved
+1. Azure Key Vault Setup
+2. Databricks scoped credential setup
+3. Retrieve Keys from Azure Key Vault in databricks.
+
+
+Azure Key Vault Setup:
+	1. Login to azure portal
+	2. Spin the service azure key vault
+	3. Note down DNS name and Resource Id
+	4. Create the secret.
+	
+Databricks Scope Credentials
+	1. //.....#secrets/createScope
+	2. Name the scoped credential
+	3. Input DNS name and resource ID
+	4. Create scoped credential
+	
+Retrieve the Key using Pyspark
+	1. dbutils.secrets.get(scope="<scope name>",key="<key name>")
