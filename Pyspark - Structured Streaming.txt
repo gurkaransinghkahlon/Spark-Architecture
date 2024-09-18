@@ -1,0 +1,45 @@
+Terminology
+1. Readstream - To read the streaming data
+2. Writestream - To write the streaming data
+3. Checkpoint - Checkpoint has keyrole in fault tolerant and incremental stream
+				processing pipelines.Maintain intermediate state on HDFS 
+				compatible file system to recover from failures.
+4. Trigger - Data continously flows into a streaming system. Event trigger initiates
+			 the streaming. Default, fixed interval and one time.
+5. Output mode - Append, Complete, update
+
+
+Standard Architecture
+	Ingest -
+		Event Hubs (source - database)
+		Kafka (source - files)
+	Process - 
+		Databricks   (has Checkpoint logic)
+		Storage
+	Store
+		Data Warehouse
+	Report
+		Power BI
+	
+Define Schema for sample streaming data
+	from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+	schema_defined = StructType([StructField('File',StringType(),True),
+					StructField('Shop',StringType(),True),
+					StructField('sale_count',IntegerType(),True)
+					])
+				
+Read Streaming Data
+	df = spark.readStream.format("csv").schema(schema_defined)
+	     .option("header",True).option("sep",";").load("/FileStore/tables/stream_read/")
+		 
+	df1 = df.groupBy("shop").sum("sale_count")
+	display(df1)
+	
+Write Streaming data
+	df4 = df.writeStream.format("parquet").outputMode("append")
+			.output("path","/FileStore/tables/stream_write/").option("checkpointLocation","/FileStore/tables/stream_checkpoint/")
+			.start().awaitTermination()
+			
+Verify the written stream output data
+	display(spark.read.format("parquet").load("/FileStore/tables/stream_write/*.parquet"))
+
