@@ -1,0 +1,43 @@
+1. Two Types of partition strategies
+	Repartition
+	Coalesce
+	
+2. Right number of partitions created based on number of cores boosts the performance.
+	If not, hits the performance.
+	Evenly distributed partition, improves the performance.
+	
+3. Default partitions for RDD/Dataframe
+	sc.defaultParallelism = 8 (8 partitions created by default)
+	spark.conf.get("spark.sql.files.maxPartitionBytes") = 128 MB
+	
+4. a. Function Repartition is used to increase or decrease partitions in spark
+   b. Repartition always shuffle the data and build new partitions from scratch.
+   c. Repartition results in almost equal size partitions.
+   d. Due to shuffling, performace can be affected in some use cases.
+   
+5. Repartition 
+	Executor 1 : P1, P2, P3
+	Executor 2 : P4, P5, P6
+	
+	df.repartition(4)  [shuffled data = P1+P2+P3+P4+P5+P6]
+	
+	Executor 1 : P1, P2
+	Executor 2 : P3, P4
+	
+6. a. Coalesce function only reduces number of partitions.
+   b. Coalesce doesn't require a full shuffle.
+   c. Coalesce combine few partitions or shuffle data only from few partitions thus avoiding
+		full shuffle
+   d. Due to partition merge, it produces uneven size of partitions.
+   e. Since full shuffle is avoided, coalesce is better performant than repartition.
+   
+7. Coalesce
+	Executor 1 : P1, P2, P3
+	Executor 2 : P4, P5, P6
+	
+	df.coalsce(4)
+	
+	Executor 1 : P1=P1+P3, P2
+	Executor 2 : P3=P5+P6, P4
+	
+8. 
