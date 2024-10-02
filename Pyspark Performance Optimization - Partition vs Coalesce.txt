@@ -40,4 +40,25 @@
 	Executor 1 : P1=P1+P3, P2
 	Executor 2 : P3=P5+P6, P4
 	
-8. 
+Note:
+	Generate data within spark env
+	
+	from pyspark.sql.types import IntegerType
+	df = spark.createDataFrame(range(10), IntegerType())
+	df.rdd.getNumPartitions()
+	
+	Output is 8
+	
+	Verify data within partitions:
+	df.rdd.glom().collect()
+	
+8. We can change default partitions size by:
+	spark.conf.set("spark.sql.file.maxPartitionBytes",200000)
+	
+9. df1 = df.repartition(20)
+	df1.rdd.getNumPartitions();  //20
+	
+10. df2 = df.coalesce(2)
+	df2.rdd.getNumPartitions();
+	df2.rdd.glom().collect()
+	
