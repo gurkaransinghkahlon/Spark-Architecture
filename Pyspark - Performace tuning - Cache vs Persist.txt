@@ -1,0 +1,27 @@
+1. Cache is a programming mechanism which gives option to store data in-memory across
+	worker nodes.
+	
+2. Persist is a programming mechanism which gives option to store data either
+	in-memory or in disc across nodes.
+	
+3. Mostly we do lazy evaluation and call action at the end.
+	df1 = df.select(df.emp_name, df.doj, df.dob,df.status)
+	df2 = df1.filter(df.status = "active")
+	df3 = df2.withColumn("emp_age",current_date - df1.dob)
+	df3.count() ##Calling action
+	
+4. Storage levels
+	a. MEMORY_ONLY = Same as cache
+	b. MEMORY_ONLY_SER = Persist RDD in serialized form. It is space efficient
+						but not time efficient.
+	c. MEMORY_AND_DISC = Store partitions on disk which doesnot fit in memory
+	d. MEMORY_AND_DISC_SER = Same as above but serialized
+	e. DISK_ONLY = Persist data in Disk which require input and output operations.
+					Still better performance than re-evaluation each time through
+					DAG (Directed Acyclic Graph)
+	f. MEMORY_ONLY_2, MEMORY_ONLY_SER_2, MEMORY_AND_DISC_2, MEMORY_AND_DISC_SER_2,
+		DISK_ONLY_2 = same as above methods but creates replication in another node.
+						Helpful incase of failure.
+		
+5.	Memory only = High space Used and Low CPU Time
+	DISK_ONLY = Low space used and High CPU time
