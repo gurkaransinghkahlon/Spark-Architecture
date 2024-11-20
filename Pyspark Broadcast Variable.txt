@@ -1,0 +1,29 @@
+Pyspark Broadcast Variable
+
+It is a programming mechanism through which we can keep read-only copies of data
+into each node of cluster instead of sending it to node every time a task needs it.
+
+There is fact table which has billions of records and dimension table (few thousand
+records) which are joined
+
+Notes:
+	1. Broadcast variable is materialized and cached in each node of the cluster.
+	2. It avoids data shuffle thus improves performance.
+	3. It reduces N/W I/O operations.
+	4. Ideal for joining table where one side of join is tiny table.
+	5. Broadcast variable is sent to worker node through driver. So size of 
+		broadcast variable should fit into driver memory otherwise leading to 
+		Out of Memory issues.
+		
+Implementation:
+
+	from pyspark.sql.functions import broadcast
+
+	joinDF = transactionsDF.join(broadcast(storeDF), transactionsDF['store_id'] = storeDF['store_id'])
+
+	joinDF.show()
+
+To see how it creates plan:
+	joinDF.explain(True)
+
+
