@@ -1,0 +1,28 @@
+Pyspark - Adaptive Query Execution (AQE)
+
+1. Spark 1.x has Catalyst Optimizer
+2. Spark 2.x has Cost Based Optimizer
+3. Spark 3.0 introduced Adaptive Query Execution (AQE)
+
+Syntax : spark.conf.set("spark.sql.adaptive.enabled",True)
+
+Architecture of Spark Optimizer
+1. Front End(Sql API, Dataframe, Dataset)
+2. Optimizer(Logical Plan , Optimized Logical Plan, Physical Plan)
+3. BackEnd (Cost model, AQE, Select Physical Plan)
+
+AQE features:
+1. Dynamically coalescing shuffle partitions.
+	- Too few partitions, hits performance.
+	- Too many partitions, more N/W input output operations.
+	- AQE chooses best partition automatically.
+	
+2. Dynamically switching join strategies.
+	- Shuffle join (Merge sort)
+	- Broadcast join
+	- AQE chooses best join strategy
+	
+3. Dynamically optimizing skew joins.
+	- AQE skew join optimization detects skew(some big partitions) automatically.
+		It splits skew partition into smaller subpartition.
+
