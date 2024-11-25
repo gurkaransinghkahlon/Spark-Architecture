@@ -1,0 +1,9 @@
+Pyspark - Handling null values
+
+1. df.filter(df.Mark.isNull())
+	or
+		display(df.filter("Mark IS NULL"))
+		display(df.filter(col("Mark").isNull())
+	
+2. df.filter(df.Mark.isNotNull())
+		display(df.filter((df.Mark.isNotNull()) & (df.Attendence.isNotNull())))
