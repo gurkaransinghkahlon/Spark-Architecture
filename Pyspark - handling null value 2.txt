@@ -1,0 +1,16 @@
+Pyspark - Handling null values 2
+
+	1. df1 = df.na.drop("Parameter")
+		df.na.drop()
+			Drop the rows if any or all columns contains null value
+		Parameter: "any" or "all", "subset=[col1, col2]
+		
+		df1 = df.dropna("parameter")
+		
+	2. df1 = df.na.fill(value="Dummy value", subset=["column"])
+			df1= df.fillna("Parameter")
+			
+		eg = df.na.fill(value = 0)
+			Populates a dummy value (above as 0 for all null integer values)
+			
+	
