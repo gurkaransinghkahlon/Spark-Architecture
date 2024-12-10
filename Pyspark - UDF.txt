@@ -1,0 +1,17 @@
+Pyspark - UDF
+	UDF - User Defined Function is a piece of Code which performs certain tasks
+			and can be reused to perform the same task across multiple 
+			scenarios.
+	
+	import pyspark.sql.functions as f
+	def udf_name(parameters):
+		--Code
+		return output
+		
+	Notes:
+	1. UDF is expensive operation in spark development.
+	2. Try to minimise the usage of UDF and apply built in functions wherever possible
+	3. UDF are created in python or scala and dataframe in JVM so UDF need
+		serialization/deserialization to perform the task.
+		
+		
