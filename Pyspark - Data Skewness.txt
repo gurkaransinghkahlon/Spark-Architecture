@@ -1,0 +1,19 @@
+
+1. Data Skew is condition in which in which table data is unevenly distributed among partitions in the cluster
+2. Data Skew can downgrade performance of queries esp. with joins.
+3. Join b/w big tables require shuffling data, skew can lead to extreme imbalance of work in the cluster.
+4. Some task take much time to complete than other (eg Last 3 of 200).
+
+- Job is split into stages and stage split into tasks.
+
+How to handle data skew:
+	1. Salt the skewed column with random number creating better distribution across each partition.
+	2. Apply skew hint, with information from these hints. Spark can construct better query plan, one that doesnot suffer from data skew.
+	3. Use broadcast join for smaller tables.
+	4. Enable Adaptive query execution, if you are using spark3 which will balance out partition for us automatically.
+		- Dynamically coalesce partitions
+		- Dynamically switch join strategies.
+		- Dynamically optimize skew joins.
+		
+		
+
